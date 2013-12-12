@@ -1,9 +1,8 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian-wheezy72-x64-vbox43"
+  config.vm.box = "dele-sandbox-debian"
   config.vm.box_url = "http://box.puphpet.com/debian-wheezy72-x64-vbox43.box"
 
-  config.vm.network "private_network", ip: "192.168.19.86"
-
+  config.vm.network "private_network", ip: "192.168.10.200"
 
   config.vm.synced_folder "./", "/var/www", id: "vagrant-root", :nfs => false
 
@@ -26,6 +25,8 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "puppet/manifests"
     puppet.options = ["--verbose", "--hiera_config /vagrant/hiera.yaml", "--parser future"]
   end
+
+  config.vm.provision :shell, :path => "shell/setup-node.sh"
 
 
 
