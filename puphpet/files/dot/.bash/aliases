@@ -1,0 +1,33 @@
+# Wordpress
+alias wp='/vagrant/vendor/wp-cli/wp-cli/bin/wp $@ --path=web/wp'
+
+function sync_down()
+{
+rsync -avz --delete -e ssh sholashrine@sholashrine.webfactional.com:/home/sholashrine/webapps/$1/shared/web/app/uploads/* /var/www/web/app/uploads/
+}
+
+function sync_up()
+{
+rsync -avz --delete -e ssh /var/www/web/app/uploads/* sholashrine@sholashrine.webfactional.com:/home/sholashrine/webapps/$1/shared/web/app/uploads/
+}
+
+
+#aliases
+alias desk="cd ~/Desktop"
+alias dotf="cd ~/bin/dotfiles/"
+alias reload="source ~/.bashrc"
+alias er="mate -w ~/bin/dotfiles/bash/ && reload"
+
+
+#Utilitiespunit
+alias c="clear"
+alias zipr="zip -r"
+alias m="mate"
+alias h="history"
+
+#Git
+alias g="git status"
+alias br="git branch"
+alias glog="git log"
+alias gtag="git tag"
+

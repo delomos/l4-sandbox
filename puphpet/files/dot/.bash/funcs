@@ -99,3 +99,6 @@ function chkout(){
 function gchangelog(){
 	git log --pretty=format:"(%h)%s%n %b by %cn on %ai%n%n" --grep=#[1-9]
 }
+function pull(){
+	git pull
+}
