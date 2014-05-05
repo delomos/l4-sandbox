@@ -89,12 +89,14 @@ Vagrant.configure("2") do |config|
 
   ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
 
+
   config.vm.provision "shell" do |kg|
     kg.path = "puphpet/shell/ssh-keygen.sh"
     kg.args = "#{ssh_username}"
   end
 
   config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
+  config.vm.provision :shell, :inline => "echo -e '#{File.read("#{Dir.home}/.gitconfig")}' > '/home/vagrant/.gitconfig'"
 
   if !data['ssh']['host'].nil?
     config.ssh.host = "#{data['ssh']['host']}"

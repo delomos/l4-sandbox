@@ -47,7 +47,14 @@ vagrantfile-local:
     vagrant:
         host: detect
 server:
-    packages: {  }
+    packages:
+      - vim
+      - git-flow
+      - curl
+      - wget
+      - build-essential
+      - tree
+      - sqlite3
     dot_files:
         -
             bash_aliases: null
@@ -120,7 +127,7 @@ php:
         display_errors: On
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
-    timezone: America/Chicago
+    timezone: America/New_York
 xdebug:
     install: '0'
     settings:
