@@ -1,0 +1,8 @@
+{{input value=title name="title" placeholder="Title" autofocus=true}}
+{{view Ember.Select
+        selectionBinding="status"
+        contentBinding="statuses"
+        name="status"
+        class="pull-right"}}
+
+{{textarea value=description name="description"}}

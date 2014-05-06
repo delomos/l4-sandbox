@@ -1,5 +1,18 @@
-<h3><span>({{status}}) </span>{{title}}</h3>
-<p>{{description}}</p>
+{{#if isEditing}}
+    {{view Ember.Select
+        selectionBinding="status"
+        contentBinding="statuses"
+        name="status"
+        class="pull-right"}}
+    {{input value=title name="title"}}
+    {{textarea value=description name="description"}}
+{{else}}
+    <h3><span>({{status}}) </span>{{title}}</h3>
+    <p>{{description}}</p>
+{{/if}}
 
-
-<button {{action "edit"}}>edit</button>
+{{#if isEditing}}
+    <button {{action "done"}}>done</button>
+{{else}}
+    <button {{action "edit"}}>edit</button>
+{{/if}}

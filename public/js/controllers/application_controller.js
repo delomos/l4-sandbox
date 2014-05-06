@@ -1,7 +1,9 @@
 var ApplicationController = Ember.Controller.extend({
     currentYear: function(){
         return new Date().getFullYear();
-    }.property()
+    }.property(),
+
+
 });
 
 module.exports = ApplicationController;
