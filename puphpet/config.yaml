@@ -1,11 +1,13 @@
 ---
 vagrantfile-local:
     vm:
-        hostname: l4-dev-box
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+        hostname: null
         network:
             private_network: 192.168.56.220
             forwarded_port:
-                FzntD9xAdegP:
+                7jyzGUtbCYua:
                     host: '7917'
                     guest: '22'
         provider:
@@ -13,13 +15,8 @@ vagrantfile-local:
                 modifyvm:
                     natdnshostresolver1: on
                     memory: '512'
-                    setextradata:
-                        VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
-                box: wa-wheezy72-x64-vbox43
-                box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
-            parallels:
-                box: wirelessanalytics/debian73-amd64
-                box_url: 'https://vagrantcloud.com/wirelessanalytics/debian73-amd64/version/1/provider/parallels.box'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
             puppet:
                 manifests_path: puphpet/puppet
@@ -29,7 +26,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            fU5jXWfuZZ9b:
+            mHsYdOHJOTiX:
                 source: ./
                 target: /var/www
                 nfs: 'false'
@@ -41,20 +38,20 @@ vagrantfile-local:
         username: vagrant
         guest_port: null
         keep_alive: true
-        forward_agent: false
+        forward_agent: config
         forward_x11: false
         shell: 'bash -l'
     vagrant:
         host: detect
 server:
     packages:
-      - vim
-      - git-flow
-      - curl
-      - wget
-      - build-essential
-      - tree
-      - sqlite3
+        - vim
+        - git-flow
+        - curl
+        - wget
+        - build-essential
+        - tree
+        - sqlite3
     dot_files:
         -
             bash_aliases: null
@@ -81,7 +78,7 @@ apache:
         - php
         - rewrite
     vhosts:
-        kWkFsTTg3lOY:
+        85IoGoRMFDuK:
             servername: l4.dev
             docroot: /var/www/public
             port: '80'
@@ -99,7 +96,7 @@ apache:
 nginx:
     install: 0
     vhosts:
-        j19q3p9eh30i:
+        UZKBg9ylVzM1:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -113,7 +110,7 @@ nginx:
                 - 'APP_ENV dev'
 php:
     install: '1'
-    version: '55'
+    version: '54'
     composer: '1'
     modules:
         php:
@@ -129,7 +126,7 @@ php:
         session.save_path: /var/lib/php/session
     timezone: America/New_York
 xdebug:
-    install: '0'
+    install: 0
     settings:
         xdebug.default_enable: '1'
         xdebug.remote_autostart: '0'
@@ -147,7 +144,7 @@ mysql:
     phpmyadmin: 0
     adminer: 0
     databases:
-        HIEWl2QIT1ou:
+        oZztnoDRVj5g:
             grant:
                 - ALL
             name: l4_dev
@@ -182,7 +179,7 @@ redis:
     settings:
         conf_port: '6379'
 beanstalkd:
-    install: '0'
+    install: 0
     settings:
         listenaddress: 0.0.0.0
         listenport: '13000'
@@ -197,9 +194,4 @@ rabbitmq:
     install: 0
     settings:
         port: '5672'
-elastic_search:
-    install: '0'
-    settings:
-        java_install: true
-        autoupgrade: true
 

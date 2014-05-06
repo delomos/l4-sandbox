@@ -5,28 +5,16 @@ dir = File.dirname(File.expand_path(__FILE__))
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 data = configValues['vagrantfile-local']
 
-# if !data['vm']['provider']['virtualbox'].empty?
-#   ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
-# end
+if !data['vm']['provider']['virtualbox'].empty?
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+end
 
 Vagrant.configure("2") do |config|
+  config.vm.box = "#{data['vm']['box']}"
+  config.vm.box_url = "#{data['vm']['box_url']}"
 
-  if ENV['VAGRANT_DEFAULT_PROVIDER'] == 'parallels'
-
-    config.vm.box = "#{data['vm']['provider']['parallels']['box']}"
-    config.vm.box_url = "#{data['vm']['provider']['parallels']['box_url']}"
-
-
-  else
-
-    config.vm.box = "#{data['vm']['provider']['virtualbox']['box']}"
-    config.vm.box_url = "#{data['vm']['provider']['virtualbox']['box_url']}"
-
-
-    if data['vm']['hostname'].to_s != ''
-      config.vm.hostname = "#{data['vm']['hostname']}"
-    end
-
+  if data['vm']['hostname'].to_s != ''
+    config.vm.hostname = "#{data['vm']['hostname']}"
   end
 
   if data['vm']['network']['private_network'].to_s != ''
@@ -71,6 +59,7 @@ Vagrant.configure("2") do |config|
     puppet.facter = {
       "ssh_username"     => "#{ssh_username}",
       "provisioner_type" => ENV['VAGRANT_DEFAULT_PROVIDER'],
+      "vm_target_key"    => 'vagrantfile-local',
     }
     puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
     puppet.manifest_file = "#{data['vm']['provision']['puppet']['manifest_file']}"
@@ -89,7 +78,6 @@ Vagrant.configure("2") do |config|
 
   ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
 
-
   config.vm.provision "shell" do |kg|
     kg.path = "puphpet/shell/ssh-keygen.sh"
     kg.args = "#{ssh_username}"
@@ -97,6 +85,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
   config.vm.provision :shell, :inline => "echo -e '#{File.read("#{Dir.home}/.gitconfig")}' > '/home/vagrant/.gitconfig'"
+
 
   if !data['ssh']['host'].nil?
     config.ssh.host = "#{data['ssh']['host']}"
@@ -127,5 +116,4 @@ Vagrant.configure("2") do |config|
   end
 
 end
-
 
