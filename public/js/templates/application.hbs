@@ -1,0 +1,23 @@
+<h1>Ember App</h1>
+
+<header class="navbar">
+    <div class="container">
+        <div class="navbar-header">
+            {{#linkTo "index" class="navBar"}} Trackr {{/linkTo}}
+        </div>
+    </div>
+
+    <ul class="nav navbar">
+        <li>{{#linkTo "index"}}Home{{/linkTo}}</li>
+        <li>{{#linkTo "tickets"}}Tickets{{/linkTo}}</li>
+    </ul>
+</header>
+
+<div class="large-12 column"s>
+    {{outlet}}
+</div>
+
+
+<footer>
+  <p>Copyright &COPY; {{ currentYear }} Geleyi Inc</p>
+</footer>
